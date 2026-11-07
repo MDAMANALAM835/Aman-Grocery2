@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,62 +37,70 @@
 </section>
 
 <section class="products container" id="products">
+
     <h2>Our Popular Products</h2>
 
     <div class="product-grid">
 
-        <div class="product-card">
-            <div class="product-icon">🍎</div>
-            <h3>Fresh Fruits</h3>
-            <p>Fresh and delicious seasonal fruits.</p>
+        {% for product in products %}
+
+        <div class="product-card"
+             data-name="{{ product.name|lower }}"
+             data-category="{{ product.category }}">
+
+            {% if product.image_url %}
+            <img
+                src="{{ product.image_url }}"
+                alt="{{ product.name }}"
+                loading="lazy"
+                onerror="this.style.display='none';
+                this.nextElementSibling.style.display='block';"
+            >
+            {% endif %}
+
+            <div class="image-placeholder"
+                 style="display: {% if product.image_url %}none{% else %}block{% endif %};">
+                🛒
+            </div>
+
+            <h3>{{ product.name }}</h3>
+
+            <p class="category">{{ product.category }}</p>
+
+            <p class="price">
+                ₹{{ product.price }} / {{ product.unit }}
+            </p>
+
         </div>
 
-        <div class="product-card">
-            <div class="product-icon">🥦</div>
-            <h3>Fresh Vegetables</h3>
-            <p>Healthy vegetables for your family.</p>
-        </div>
+        {% else %}
 
-        <div class="product-card">
-            <div class="product-icon">🥛</div>
-            <h3>Dairy Products</h3>
-            <p>Milk, butter, cheese and more.</p>
-        </div>
+        <p>No products are currently available.</p>
 
-        <div class="product-card">
-            <div class="product-icon">🍚</div>
-            <h3>Rice & Grains</h3>
-            <p>Quality rice, pulses and grains.</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-icon">🍪</div>
-            <h3>Snacks</h3>
-            <p>Tasty snacks for every occasion.</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-icon">🧴</div>
-            <h3>Daily Essentials</h3>
-            <p>Everyday household essentials.</p>
-        </div>
+        {% endfor %}
 
     </div>
 </section>
 
 <section class="about container" id="about">
+
     <h2>About Aman Grocery</h2>
+
     <p>
         Welcome to Aman Grocery, your trusted neighbourhood
         grocery store in Kolkata, West Bengal.
         We provide everyday grocery essentials with care.
     </p>
+
 </section>
 
 <section class="contact container" id="contact">
+
     <h2>Contact Us</h2>
+
     <p>Location: Kolkata, West Bengal</p>
     <p>Payment: Cash and Online</p>
+
 </section>
 
 <footer>
